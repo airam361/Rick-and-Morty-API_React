@@ -17,7 +17,7 @@ const Header = () => {
       <div className={classes["header-rigth"]}>
         <h3>
           <a
-            href=""
+            href="https://github.com/airam361/Rick-and-Morty-API_React"
             target="_blank"
           >
             Git Hub Link
