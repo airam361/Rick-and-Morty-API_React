@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+
+import Header from "./components/Header";
+import Container from "./components/UI/Container";
+import EpisodesList from "./components/Episodes/EpisodesList";
+import CharactersList from "./components/Characters/CharactersList";
 
 function App() {
+  const [activeEpisode, setActiveEpisode] = useState();
+  const [expandClass, setExpandClass] = useState("");
+  const [expand, setExpand] = useState(false);
+
+  const setActiveEpisodeHandler = (episode) => {
+    setActiveEpisode(episode);
+  };
+
+  const revertExpaned = (oldVal) => {
+    const newVal = !oldVal;
+    if (newVal) {
+      setExpandClass("expand");
+    } else {
+      setExpandClass("");
+    }
+    return newVal;
+  };
+
+  const toggleExpand = () => {
+    setExpand(revertExpaned);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Container className={`${"container-left"} ${expandClass}`}>
+        <EpisodesList
+          activeEpisode={activeEpisode}
+          setActiveEpisodeHandler={setActiveEpisodeHandler}
+          toggleExpand={toggleExpand}
+          expand={expand}
+        />
+      </Container>
+      <Container className={"container-rigth"}>
+        <CharactersList activeEpisode={activeEpisode} />
+      </Container>
+    </>
   );
 }
 
